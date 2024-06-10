@@ -5,15 +5,24 @@ import org.springframework.stereotype.Service;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.transaction.annotation.Transactional;
+import syim.reviewboard.dto.ReplySaveRequestDto;
 import syim.reviewboard.model.Board;
+import syim.reviewboard.model.Reply;
 import syim.reviewboard.model.User;
 import syim.reviewboard.repository.BoardRepository;
+import syim.reviewboard.repository.ReplyRepository;
+import syim.reviewboard.repository.UserRepository;
 
 
 @Service
 public class BoardService {
     @Autowired
     private BoardRepository boardRepository;
+    @Autowired
+    private UserRepository userRepository;
+
+    @Autowired
+    private ReplyRepository replyRepository;
 
     public BoardService(BoardRepository boardRepository) {
         this.boardRepository = boardRepository;
@@ -51,5 +60,28 @@ public class BoardService {
         Board board = boardRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Failed to load post : cannot find post id"));
         board.setTitle(requestBoard.getTitle());
         board.setContent(requestBoard.getContent());
+    }
+
+    //댓글 작성
+    @Transactional
+    public void writeReply(ReplySaveRequestDto replyDto) {
+        //Dto에 담긴 아이디로 실제 게시판 아이디 확인
+        Board board = boardRepository.findById(replyDto.getBoardId()).orElseThrow(() -> new IllegalArgumentException("Failed to write reply : cannot find ;ost id"));
+        //실제 있는 사용자인지 확인
+        User user = userRepository.findById(replyDto.getUserId()).orElseThrow(() -> new IllegalArgumentException("Failed to write reply :  cannot find post id"));
+        //객체 생성
+        Reply reply = Reply.builder()
+                .user(user)
+                .board(board)
+                .content(replyDto.getContent()).build();
+
+        replyRepository.save(reply);
+    }
+
+    //댓글 삭제
+    @Transactional
+    public void deleteReply(long replyId) {
+        //댓글의 아이디를 통해 해당 row 삭제
+        replyRepository.deleteById(replyId);
     }
 }

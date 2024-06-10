@@ -5,6 +5,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 import syim.reviewboard.config.auth.PrincipalDetail;
+import syim.reviewboard.dto.ReplySaveRequestDto;
 import syim.reviewboard.dto.ResponseDto;
 import syim.reviewboard.service.BoardService;
 import syim.reviewboard.model.Board;
@@ -29,6 +30,18 @@ public class BoardApiController {
     @PutMapping("/api/board/{id}")
     public ResponseDto<Integer> update(@PathVariable int id, @RequestBody Board board){
         boardService.updatePost(id, board);
+        return new ResponseDto<>(HttpStatus.OK, 1);
+    }
+
+    @PostMapping("/api/board/{boardId}/reply")
+    public ResponseDto<Integer> saveReply(@RequestBody ReplySaveRequestDto reply){
+        boardService.writeReply(reply);
+        return new ResponseDto<>(HttpStatus.OK, 1);
+    }
+
+    @DeleteMapping("/api/board/reply/{replyId}")
+    public ResponseDto<Integer> deleteReply(@PathVariable long replyId) {
+        boardService.deleteReply(replyId);
         return new ResponseDto<>(HttpStatus.OK, 1);
     }
 }
