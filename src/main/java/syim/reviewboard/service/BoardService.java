@@ -5,11 +5,14 @@ import org.springframework.stereotype.Service;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.transaction.annotation.Transactional;
+import syim.reviewboard.dto.BookDto;
 import syim.reviewboard.dto.ReplySaveRequestDto;
 import syim.reviewboard.model.Board;
+import syim.reviewboard.model.Book;
 import syim.reviewboard.model.Reply;
 import syim.reviewboard.model.User;
 import syim.reviewboard.repository.BoardRepository;
+import syim.reviewboard.repository.BookRepository;
 import syim.reviewboard.repository.ReplyRepository;
 import syim.reviewboard.repository.UserRepository;
 
@@ -22,7 +25,13 @@ public class BoardService {
     private UserRepository userRepository;
 
     @Autowired
+    private BookRepository bookRepository;
+
+    @Autowired
     private ReplyRepository replyRepository;
+
+    @Autowired
+    private BookService bookService;
 
     public BoardService(BoardRepository boardRepository) {
         this.boardRepository = boardRepository;
@@ -30,9 +39,26 @@ public class BoardService {
 
     //게시글을 저장
     @Transactional
-    public void writePost(Board board, User user) {
+    public void writePost(Board board, User user, BookDto bookDto) {
         board.setUser(user); // 실제로 저장될 때는 user에 해당하는 id만 저장됨
+        if (bookDto != null) {
+            Book book = bookRepository.findByApiId(bookDto.getApiId());
+            if (book == null) {
+                book = convertToBook(bookDto);
+                bookRepository.save(book);
+            }
+            board.setBook(book);
+        }
         boardRepository.save(board);
+    }
+
+    private Book convertToBook(BookDto bookDto) {
+        Book book = new Book();
+        book.setTitle(bookDto.getTitle());
+        book.setAuthor(bookDto.getAuthor());
+        book.setImageURL(bookDto.getImageURL());
+        book.setApiId(bookDto.getApiId());
+        return book;
     }
 
     //게시글 리스트 출력
@@ -60,6 +86,7 @@ public class BoardService {
         Board board = boardRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Failed to load post : cannot find post id"));
         board.setTitle(requestBoard.getTitle());
         board.setContent(requestBoard.getContent());
+        board.setCategory(requestBoard.getCategory());
     }
 
     //댓글 작성

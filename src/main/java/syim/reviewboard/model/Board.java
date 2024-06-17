@@ -37,6 +37,10 @@ public class Board {
     @JoinColumn(name = "userId") //user에 userID값이 같이 저장됨
     private User user;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "book_id")
+    private Book book;
+
     // 주인 아닐 시 읽기만 가능하도록
     @OneToMany(mappedBy = "board", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
     @OrderBy("id desc")
