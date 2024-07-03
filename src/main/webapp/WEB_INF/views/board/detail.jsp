@@ -8,16 +8,28 @@
         color: rgb(138, 138, 138);
     }
     .post-title {
-        font-size: 2em; /* 글 제목 폰트 크기 */
+        font-size: 1.6em; /* 글 제목 폰트 크기 */
     }
     .post-category {
         font-size: 0.8em; /* 카테고리 폰트 크기 */
-        float: right /* 페이지 오른쪽 정렬 */
+        float: right; /* 페이지 오른쪽 정렬 */
+        color: rgb(138, 138, 138);
+        margin-top: 10px;
+        margin-right: 5px;
     }
     .post-content {
         font-size: 1em; /* 글 내용 폰트 크기 */
+        margin-left: 10px;
     }
     .card-header {
+        font-size: 0.9em;
+    }
+    .reply-request {
+        color: rgb(138, 138, 138);
+        font-size: 0.8em;
+        margin-bottom: 10px;
+    }
+    .reply-info{
         font-size: 0.9em;
     }
 </style>
@@ -32,7 +44,7 @@
     <br><br>
     <div class="post-info float-right">
         글 번호: <span id="id">${boards.id} </span>
-        작성자: <span>${boards.user.username} </span>
+        / 작성자: <span>${boards.user.username} </span>
     </div>
     <br>
     <div class="form-group">
@@ -54,8 +66,8 @@
             <input type="hidden" id="userId" value="${principal.user.id}">
             <input type="hidden" id="boardId" value="${boards.id}">
             <div class="card-body">
-                <!-- 댓글 내용 입력 창은 한 줄 -->
-                댓글 작성하기
+                <!-- 댓글 내용 입력 창은 두 줄 -->
+                <div class="reply-request">댓글 작성하기</div>
                 <textarea id="reply-content" class="form-control" rows="2"></textarea>
             </div>
             <div class="card-footer d-flex justify-content-between align-items-center">
@@ -72,7 +84,7 @@
         <ul id="reply-box" class="list-group">
             <c:forEach var="reply" items="${boards.replys}">
                 <li id="reply-${reply.id}" class="list-group-item d-flex justify-content-between">
-                    <div>${reply.user.username}&nbsp;&nbsp; ${reply.content}</div>
+                    <div class="reply-info">${reply.user.username}&nbsp;&nbsp;&nbsp; ${reply.content}</div>
                     <div class="d-flex">
                         <!-- 댓글 작성자와 현재 사용자가 같으면 삭제 버튼 활성화 -->
                         <c:if test="${principal.user.username eq reply.user.username}">
