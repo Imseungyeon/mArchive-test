@@ -1,4 +1,5 @@
 <%@ taglib prefix="C" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ include file="../layout/header.jsp"%>
 
@@ -106,7 +107,7 @@
 <%--  c:if  테스트 넣기 댓글 0개 아닐때만 노출되도록--%>
 
     <div class="card">
-        <div class="card-header"> 댓글 </div>
+        <div class="card-header"> 댓글 ${fn:length(boards.replys)}개</div>
         <ul id="reply-box" class="list-group">
             <c:forEach var="reply" items="${boards.replys}">
                 <li id="reply-${reply.id}" class="list-group-item d-flex justify-content-between">

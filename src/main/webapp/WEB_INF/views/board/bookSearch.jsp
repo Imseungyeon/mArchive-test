@@ -17,7 +17,6 @@ HTML : 변화가 없는 단순 상수값을 출력할 때 사용한다. -->
                 <input type="text" class="form-control" id="keyword" name="keyword" placeholder="Enter book title" >
                 <button type="button" class="btn btn-primary book-find" onclick="searchBooks()" >검색</button>
             </div>
-<%--        <button type="button" class="btn btn-primary book-find" onclick="searchBooks()">검색</button>--%>
         </form>
         <div id="search-results" class="table-responsive">
             <table class="table text-center">
@@ -30,13 +29,12 @@ HTML : 변화가 없는 단순 상수값을 출력할 때 사용한다. -->
                 </tr>
             </thead>
             <tbody id="results-body">
-                <!-- 검색 결과가 여기에 추가됩니다. -->
+                <!-- 검색 결과 추가되는 곳-->
             </tbody>
         </table>
     </div>
 </div>
 </div>
-
 
 <script>
     document.addEventListener("DOMContentLoaded", function() {
@@ -74,7 +72,6 @@ HTML : 변화가 없는 단순 상수값을 출력할 때 사용한다. -->
                         var innerHTML = "<td>" + title + "</td>" + "<td>" + author + "</td>" + '<td><img src="' + imageURL + '" alt="Book Image" width="100"/></td>';
 
                         var row = document.createElement("tr");
-                        <%--var innerHTML = `<h5>${book.title}</h5> <p>${book.author}</p> <img src="${book.imageURL}" alt="Book Image"/> `;--%>
                         var bookStringify = JSON.stringify(book);
                         innerHTML += "<td><button onclick='selectBook(" + bookStringify + ")'> select </button></td>";
 

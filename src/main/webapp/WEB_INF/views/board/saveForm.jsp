@@ -80,9 +80,6 @@
     }
 
     function receiveSelectedBook(book) {
-        <%--document.getElementById("selected-book").value = JSON.stringify(book);--%>
-        <%--var bookInfoDiv = document.getElementById("selected-book-info");--%>
-        <%--bookInfoDiv.innerHTML = `<h5>${book.title}</h5><p>${book.author}</p><img src="${book.imageURL}" />`;--%>
         document.getElementById("selected-book").style.display = "block";
         document.getElementById("book-title").innerText = book.title;
         document.getElementById("book-author").innerText = "(" + book.author + ")";
