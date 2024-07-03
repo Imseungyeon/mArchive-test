@@ -37,6 +37,3 @@ spring:
   logging:
     level:
       org.springframework.security: DEBUG
-
-  API-KEY:
-    aladinApiKey: ttbisy03090428001
