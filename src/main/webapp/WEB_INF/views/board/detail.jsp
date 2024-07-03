@@ -32,6 +32,22 @@
     .reply-info{
         font-size: 0.9em;
     }
+    .book-info-main{
+        color: rgb(138, 138, 138);
+        font-size: 0.9em;
+        margin-left: 10px;
+    }
+    .book-title{
+        font-size: 0.9em;
+        margin-left: 10px;
+    }
+    .book-author{
+        font-size: 0.9em;
+        margin-left: 10px;
+    }
+    .book-image{
+        margin-left: 10px;
+    }
 </style>
 
 <div class="container">
@@ -54,6 +70,16 @@
     <div class="form-group">
         <span class="label label-info post-category">${boards.category}</span>
     </div>
+    <hr>
+    <c:if test="${boards.category == 'Book'}">
+        <h4 class="book-info-main">책 정보</h4>
+        <div class="d-flex align-items-center">
+            <img src="${boards.book.imageURL}" alt="Book Image" width="50" class="book-image">
+            <p class="book-title"> ${boards.book.title}</p>
+            <p class="book-author">(${boards.book.author})</p>
+        </div>
+    </c:if>
+
     <hr>
     <div class="form-group post-content">
         <div>${boards.content}</div>

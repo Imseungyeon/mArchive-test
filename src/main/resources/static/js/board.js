@@ -16,16 +16,18 @@ let index = {
 
     //글 저장
     save: function() {
-        let book = null;
-        if ($("#category").val() === "Book") {
-            let selectedBook = $("input[name='book']:checked").val();
-            book = JSON.parse(selectedBook);
-        }
 
         let data = {
             title: $("#title").val(),
             category: $("#category").val(),
             content: $("#content").val(),
+        }
+
+        if ($("#category").val() === "Book") {
+            let selectedBook = document.getElementById("selected-book").dataset.book;
+            if (selectedBook) {
+                data.book = JSON.parse(selectedBook);
+            }
         }
 
         $.ajax({

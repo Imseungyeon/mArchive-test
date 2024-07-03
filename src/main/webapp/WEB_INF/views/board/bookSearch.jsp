@@ -14,8 +14,8 @@ HTML : 변화가 없는 단순 상수값을 출력할 때 사용한다. -->
         <form id="book-search-form">
             <div class="form-group book-find">
                 <label for="keyword">책 검색하기</label>
-                <input type="text" class="form-control" id="keyword" name="keyword" placeholder="Enter book title">
-                <button type="button" class="btn btn-primary book-find" onclick="searchBooks()">검색</button>
+                <input type="text" class="form-control" id="keyword" name="keyword" placeholder="Enter book title" >
+                <button type="button" class="btn btn-primary book-find" onclick="searchBooks()" >검색</button>
             </div>
 <%--        <button type="button" class="btn btn-primary book-find" onclick="searchBooks()">검색</button>--%>
         </form>
@@ -39,6 +39,15 @@ HTML : 변화가 없는 단순 상수값을 출력할 때 사용한다. -->
 
 
 <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        document.getElementById("keyword").addEventListener("keydown", function(event) {
+            if (event.key === "Enter") {
+                event.preventDefault();
+                searchBooks();
+            }
+        });
+    });
+
     function searchBooks() {
         var keyword = document.getElementById("keyword").value;
         fetch("/book/api/search", {
@@ -66,13 +75,8 @@ HTML : 변화가 없는 단순 상수값을 출력할 때 사용한다. -->
 
                         var row = document.createElement("tr");
                         <%--var innerHTML = `<h5>${book.title}</h5> <p>${book.author}</p> <img src="${book.imageURL}" alt="Book Image"/> `;--%>
-                        innerHTML += "<td><button onclick='selectBook(${JSON.stringify(book)})'> select </button></td>";
-
-                        // innerHTML 대신 insertAdjactHTML 사용
-                        // bookDiv.insertAdjacentHTML()
-                        // console.log(innerHTML);
-                        // bookDiv.innerHTML = innerHTML;
-                        // resultsDiv.appendChild(bookDiv);
+                        var bookStringify = JSON.stringify(book);
+                        innerHTML += "<td><button onclick='selectBook(" + bookStringify + ")'> select </button></td>";
 
                         row.innerHTML = innerHTML;
                         resultsBody.appendChild(row);
