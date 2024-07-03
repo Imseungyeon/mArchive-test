@@ -5,9 +5,9 @@
     <%-- 게시글 리스트 출력 - jstl for문 --%>
     <c:forEach var="boards" items="${boards.content}">
         <div class="card m-2">
-            <div class="card-body">
+            <div class="card-body d-flex justify-content-between align-items-center">
                 <h4 class="card-title">${boards.title}</h4>
-                <a href="/board/${boards.id}" class="btn btn-primary">Detail</a>
+                <a href="/board/${boards.id}" class="btn btn-primary ml-auto">Detail</a>
             </div>
         </div>
     </c:forEach>

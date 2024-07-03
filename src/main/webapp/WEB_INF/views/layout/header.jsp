@@ -11,6 +11,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/styles.css">
 </head>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
@@ -19,37 +20,36 @@
 <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.js"></script>
 <body>
 
-<nav class="navbar navbar-expand-md bg-dark navbar-dark">
-    <a class="navbar-brand" href="/">Home</a>
+<nav class="navbar navbar-expand-md navbar-dark bg-primary">
+    <a class="navbar-brand" href="/">mArchive</a>
     <button class="navbar-toggler" type="button" date-toggle="collapse" data-target="#collapsibleNavbar">
         <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="collapsibleNavbar">
-        <c:choose>
-            <c:when test="${empty principal}">
-                <ul class="navbar-nav">
+        <ul class="navbar-nav ml-auto">
+            <c:choose>
+                <c:when test="${empty principal}">
                     <li class="nav-item">
                         <a class="nav-link" href="/auth/loginForm">Sign In</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="/auth/joinForm">Sign Up</a>
                     </li>
-                </ul>
             </c:when>
             <c:otherwise>
-                <ul class="navbar-nav">
-                    <li class="navbar-item">
-                        <a class="nav-link" href="/board/saveForm">Write</a>
-                    </li>
-                    <li class="navbar-item">
-                        <a class="nav-link" href="/auth/updateForm">Info</a>
-                    </li>
-                    <li class="navbar-item">
-                        <a class="nav-link" href="/logout">Sign Out</a>
-                    </li>
-                </ul>
+                <li class="navbar-item">
+                    <a class="nav-link" href="/board/saveForm">Write</a>
+                </li>
+                <li class="navbar-item">
+                    <a class="nav-link" href="/auth/updateForm">Info</a>
+                </li>
+                <li class="navbar-item">
+                    <a class="nav-link" href="/logout">Sign Out</a>
+                </li>
             </c:otherwise>
         </c:choose>
+        </ul>
     </div>
 </nav>
+<div class="container mt-4">
 <br/>
