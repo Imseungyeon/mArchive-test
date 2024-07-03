@@ -1,17 +1,25 @@
 body {
     font-family: 'Arial', sans-serif;
     background-color: #f8f9fa;
-    padding-top: 50px;
+    /*padding-top: 50px;*/
+}
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
 }
 
-.container {
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 20px;
-    background-color: #ffffff;
+.navbar {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    border-radius: 10px;
 }
+
+/*.container {*/
+/*    max-width: 800px;*/
+/*    margin: 0 auto;*/
+/*    padding: 20px;*/
+/*    background-color: #ffffff;*/
+/*    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);*/
+/*    border-radius: 10px;*/
+/*}*/
 
 .book-search-container {
     text-align: center;
@@ -67,6 +75,11 @@ body {
     border-color: #004085;
 }
 
+.book-search-group .form-group button:hover {
+    background-color: #0056b3;
+    border-color: #004085;
+}
+
 .table {
     width: 100%;
     margin-top: 20px;
@@ -93,7 +106,7 @@ body {
 .table button {
     padding: 6px 12px;
     border: none;
-    background-color: #28a745;
+    background-color: #2881a7;
     color: white;
     cursor: pointer;
     border-radius: 5px;
@@ -108,4 +121,63 @@ body {
 .book-find input,
 .book-find button {
     margin: 20px 0;
+}
+
+.footer {
+    background-color: #ffffff;
+    color: white;
+    padding: 20px 0;
+    margin-top: 30px;
+}
+
+.footer p {
+    margin: 0;
+    font-size: 1em;
+}
+
+/* 버튼 설정 */
+.btn-detail {
+
+}
+.btn-modify {
+    background-color: rgba(255, 255, 255, 0);
+    border-color: rgba(255, 255, 255, 0);
+    color: rgba(0, 0, 0, 0.53);
+    width: 70px; /* 버튼 너비 */
+}
+
+.btn-delete {
+    background-color: rgba(255, 255, 255, 0);
+    border-color: rgba(255, 255, 255, 0);
+    color: rgba(0, 0, 0, 0.53);
+    width: 70px; /* 버튼 너비 */
+}
+
+.btn-modify:hover, .btn-modify:focus {
+    background-color: #6f99c2;
+    border-color: #6f99c2;
+}
+
+.btn-delete:hover, .btn-delete:focus {
+    background-color: #6f99c2;
+    border-color: #6f99c2;
+}
+
+.button-container {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 20px; /* 아래 여백 */
+}
+
+/* 댓글 삭제 버튼 스타일 */
+.badge {
+    background-color: rgba(255, 206, 210, 0);
+    border: none;
+    color: rgba(0, 0, 0, 0.53);
+    cursor: pointer;
+    padding: 5px 10px;
+}
+
+.badge:hover, .badge:focus {
+    background-color: rgba(68, 68, 68, 0.94);
 }

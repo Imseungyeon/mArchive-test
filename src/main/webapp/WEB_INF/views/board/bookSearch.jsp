@@ -44,7 +44,7 @@ HTML : 변화가 없는 단순 상수값을 출력할 때 사용한다. -->
         fetch("/book/api/search", {
             method: "POST",
             headers: {
-                "Content-Type": "application/json"
+                "Content-Type": "application/json; charset=UTF-8"
             },
             body: JSON.stringify({ keyword: keyword })
         })
@@ -91,6 +91,5 @@ HTML : 변화가 없는 단순 상수값을 출력할 때 사용한다. -->
     }
 </script>
 </body>
-<%@ include file="../layout/footer.jsp" %>
 
 
