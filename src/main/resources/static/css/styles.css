@@ -21,12 +21,13 @@ body {
 /*    border-radius: 10px;*/
 /*}*/
 
-.book-search-container {
+.book-search-container, .movie-search-container {
     text-align: center;
     margin-bottom: 30px;
 }
 
-.book-search-container label {
+.book-search-container label,
+.movie-search-container label{
     font-size: 1.2em;
     font-weight: bold;
     margin-bottom: 10px;
@@ -34,14 +35,16 @@ body {
     display: block;
 }
 
-.book-search-container .form-group {
+.book-search-container .form-group,
+.movie-search-container .form-group{
     display: flex;
     justify-content: center;
     align-items: center;
     margin-bottom: 20px;
 }
 
-.book-search-container .form-group input[type="text"] {
+.book-search-container .form-group input[type="text"],
+.movie-search-container .form-group input[type="text"]{
     width: 70%;
     padding: 10px;
     font-size: 1em;
@@ -53,12 +56,14 @@ body {
     margin-right: 10px;
 }
 
-.book-search-container .form-group input[type="text"]:focus {
+.book-search-container .form-group input[type="text"]:focus,
+.movie-search-container .form-group input[type="text"]:focus{
     border-color: #80bdff;
     box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
 }
 
-.book-search-container .form-group button {
+.book-search-container .form-group button,
+.movie-search-container .form-group button{
     padding: 10px 20px;
     font-size: 1em;
     border: 1px solid #007bff;
@@ -70,12 +75,14 @@ body {
     transition: all 0.3s;
 }
 
-.book-search-container .form-group button:hover {
+.book-search-container .form-group button:hover,
+.movie-search-container .form-group button:hover {
     background-color: #0056b3;
     border-color: #004085;
 }
 
-.book-search-group .form-group button:hover {
+.book-search-group .form-group button:hover,
+.movie-search-group .form-group button:hover{
     background-color: #0056b3;
     border-color: #004085;
 }
@@ -114,12 +121,15 @@ body {
 }
 
 .table button:hover {
-    background-color: #218838;
+    background-color: #12325d;
 }
 
 .book-find label,
 .book-find input,
-.book-find button {
+.book-find button,
+.movie-find label,
+.movie-find input,
+.movie-find button{
     margin: 20px 0;
 }
 
