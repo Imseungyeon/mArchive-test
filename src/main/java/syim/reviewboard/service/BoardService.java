@@ -50,6 +50,7 @@ public class BoardService {
             board.setBook(book);
         }
         boardRepository.save(board);
+
     }
 
     private Book convertToBook(BookDto bookDto) {
@@ -84,9 +85,21 @@ public class BoardService {
     public void updatePost(long id, Board requestBoard) {
         // id로 데이터베이스의 정보를 가져오고 ui에서 수정된 정보를 가져와 맵핑
         Board board = boardRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Failed to load post : cannot find post id"));
+
         board.setTitle(requestBoard.getTitle());
         board.setContent(requestBoard.getContent());
         board.setCategory(requestBoard.getCategory());
+
+        // 책 정보는 그대로 유지
+        if (requestBoard.getBook() != null) {
+            Book book = bookRepository.findByApiId(requestBoard.getBook().getApiId());
+            if (book == null) {
+                book = requestBoard.getBook();
+                bookRepository.save(book);
+            }
+            board.setBook(book);
+        }
+        boardRepository.save(board);
     }
 
     //댓글 작성

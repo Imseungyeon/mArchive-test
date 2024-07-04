@@ -87,29 +87,32 @@
         document.getElementById("selected-book").dataset.book = JSON.stringify(book);
     }
 
-    $(document).ready(function() {
-        $('#btn-save').on("click", function() {
-            var book = JSON.parse(document.getElementById("selected-book").dataset.book || null);
-            var data = {
-                title: document.getElementById("title").value,
-                category: document.getElementById("category").value,
-                content: document.getElementById("content").value,
-                book: book // 선택한 책 정보를 포함
-            };
-
-            $.ajax({
-                type: "POST",
-                url: "/api/board",
-                data: JSON.stringify(data),
-                contentType: "application/json; charset=utf-8",
-            }).done(function(resp) {
-                alert("Success Save Post");
-                location.href = "/";
-            }).fail(function(error) {
-                alert("Failed Save Post");
-            });
-        });
-    });
+    // $(document).ready(function() {
+    //     $('#btn-save').one("click", function() {
+    //         event.preventDefault();
+    //
+    //         var book = JSON.parse(document.getElementById("selected-book").dataset.book || null);
+    //
+    //         var data = {
+    //             title: document.getElementById("title").value,
+    //             category: document.getElementById("category").value,
+    //             content: document.getElementById("content").value,
+    //             book: book // 선택한 책 정보를 포함
+    //         };
+    //
+    //         $.ajax({
+    //             type: "POST",
+    //             url: "/api/board",
+    //             data: JSON.stringify(data),
+    //             contentType: "application/json; charset=utf-8",
+    //         }).done(function(resp) {
+    //             alert("Success Save Post");
+    //             location.href = "/";
+    //         }).fail(function(error) {
+    //             alert("Failed Save Post");
+    //         });
+    //     });
+    // });
 
 
     $('.summernote').summernote({

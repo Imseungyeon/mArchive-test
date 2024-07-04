@@ -1,6 +1,26 @@
 <%@page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ include file="../layout/header.jsp" %>
-
+<style>
+    .d-flex {
+        display: flex;
+    }
+    .align-items-center {
+        align-items: center;
+    }
+    .mr-3 {
+        margin-right: 1rem;
+    }
+    .mb-0 {
+        margin-bottom: 0;
+    }
+    .selected-book-image{
+        margin-left: 10px;
+        margin-right: 30px;
+    }
+    .selected-book{
+        margin-top: 10px;
+    }
+</style>
 <div class="container">
     <form>
         <!-- 게시글의 id를 hidden 형식으로 보이지 않게 -->
@@ -16,6 +36,18 @@
                 <option selected>${boards.category}</option>
             </select>
         </div>
+
+        <c:if test="${boards.category == 'Book'}">
+            <div class="form-group" id="book-search-group">
+                <div id="selected-book" class="d-flex align-items-center selected-book">
+                    <input type="hidden" id="book-apiId" value="${boards.book.apiId}">
+                    <img id="book-image" class="selected-book-image" src="${boards.book.imageURL}" alt="Book Image" width="50">
+                    <p id="book-title" class="mr-3 mb-0">${boards.book.title}</p>
+                    <p id="book-author" class="mr-3 mb-0">(${boards.book.author})</p>
+                </div>
+            </div>
+        </c:if>
+
         <div class="form-group">
             <textarea class="form-control summernote" rows="5" id="content">${boards.content}</textarea>
         </div>
@@ -25,6 +57,7 @@
 </div>
 
 <script>
+
     $('.summernote').summernote({
         height: 300,
         minHeight: null,

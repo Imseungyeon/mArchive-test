@@ -40,6 +40,7 @@ let index = {
             location.href = "/"; //메인 페이지로 리다이렉션
         }).fail(function(error) {
             alert("Failed Save Post");
+            $("#btn-save").prop('disabled', false);
         })
     },
 
@@ -47,11 +48,25 @@ let index = {
     update: function() {
         //id값 가져와야 함
         let id = $("#id").val();
+
+        let book = null;
+        if ($("#selectCategory").val() === "Book") {
+            book = {
+                apiId: $("#book-apiId").val(),
+                title: $("#book-title").text(),
+                author: $("#book-author").text().replace(/[()]/g, ''), // 괄호 제거
+                imageURL: $("#book-image").attr("src")
+            };
+            console.log(book);
+        }
+
         let data = {
             title: $("#title").val(),
-            category: $("#category").val(),
+            category: $("#selectCategory").val(),
             content: $("#content").val(),
+            book: book
         }
+        console.log(data);
 
         $.ajax({
             type: "PUT",
@@ -63,6 +78,7 @@ let index = {
             location.href = "/";
         }).fail(function(error) {
             alert("Failed Update Post");
+            $("#btn-update").prop('disabled', false);
         })
     },
 
