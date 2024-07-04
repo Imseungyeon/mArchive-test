@@ -5,10 +5,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 import syim.reviewboard.config.auth.PrincipalDetail;
-import syim.reviewboard.dto.BoardRequestDto;
-import syim.reviewboard.dto.BookDto;
-import syim.reviewboard.dto.ReplySaveRequestDto;
-import syim.reviewboard.dto.ResponseDto;
+import syim.reviewboard.dto.*;
 import syim.reviewboard.model.Book;
 import syim.reviewboard.service.BoardService;
 import syim.reviewboard.model.Board;
@@ -30,8 +27,9 @@ public class BoardApiController {
         board.setCategory(boardRequestDto.getCategory());
 
         BookDto bookDto = boardRequestDto.getBook();
+        MovieDto movieDto = boardRequestDto.getMovie();
 
-        boardService.writePost(board, principalDetail.getUser(), bookDto);
+        boardService.writePost(board, principalDetail.getUser(), bookDto, movieDto);
         return new ResponseDto<>(HttpStatus.OK, 1);
     }
 

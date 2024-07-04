@@ -1,20 +1,16 @@
 package syim.reviewboard.service;
 
+import jakarta.persistence.Column;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.transaction.annotation.Transactional;
 import syim.reviewboard.dto.BookDto;
+import syim.reviewboard.dto.MovieDto;
 import syim.reviewboard.dto.ReplySaveRequestDto;
-import syim.reviewboard.model.Board;
-import syim.reviewboard.model.Book;
-import syim.reviewboard.model.Reply;
-import syim.reviewboard.model.User;
-import syim.reviewboard.repository.BoardRepository;
-import syim.reviewboard.repository.BookRepository;
-import syim.reviewboard.repository.ReplyRepository;
-import syim.reviewboard.repository.UserRepository;
+import syim.reviewboard.model.*;
+import syim.reviewboard.repository.*;
 
 
 @Service
@@ -28,10 +24,10 @@ public class BoardService {
     private BookRepository bookRepository;
 
     @Autowired
-    private ReplyRepository replyRepository;
+    private MovieRepository movieRepository;
 
     @Autowired
-    private BookService bookService;
+    private ReplyRepository replyRepository;
 
     public BoardService(BoardRepository boardRepository) {
         this.boardRepository = boardRepository;
@@ -39,7 +35,7 @@ public class BoardService {
 
     //게시글을 저장
     @Transactional
-    public void writePost(Board board, User user, BookDto bookDto) {
+    public void writePost(Board board, User user, BookDto bookDto, MovieDto movieDto) {
         board.setUser(user); // 실제로 저장될 때는 user에 해당하는 id만 저장됨
         if (bookDto != null) {
             Book book = bookRepository.findByApiId(bookDto.getApiId());
@@ -49,17 +45,42 @@ public class BoardService {
             }
             board.setBook(book);
         }
+
+        if (movieDto != null) {
+            Movie movie = movieRepository.findByMovieId(movieDto.getMovieId());
+            if (movie == null) {
+                movie = convertToMovie(movieDto);
+                movieRepository.save(movie);
+            }
+            board.setMovie(movie);
+        }
         boardRepository.save(board);
 
     }
 
     private Book convertToBook(BookDto bookDto) {
         Book book = new Book();
+
         book.setTitle(bookDto.getTitle());
         book.setAuthor(bookDto.getAuthor());
         book.setImageURL(bookDto.getImageURL());
         book.setApiId(bookDto.getApiId());
+
         return book;
+    }
+
+    private Movie convertToMovie(MovieDto movieDto) {
+        Movie movie = new Movie();
+
+        movie.setTitle(movieDto.getTitle());
+        movie.setEnglishTitle(movieDto.getEnglishTitle());
+        movie.setProductionYear(movieDto.getProductionYear());
+        movie.setDirector(movieDto.getDirector());
+        movie.setGenre(movieDto.getGenre());
+        movie.setNation(movieDto.getNation());
+        movie.setMovieId(movieDto.getMovieId());
+
+        return movie;
     }
 
     //게시글 리스트 출력

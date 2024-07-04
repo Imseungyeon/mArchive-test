@@ -30,6 +30,13 @@ let index = {
             }
         }
 
+        if ($("#category").val() === "Movie") {
+            let selectedMovie = document.getElementById("selected-movie").dataset.movie;
+            if (selectedMovie) {
+                data.movie = JSON.parse(selectedMovie);
+            }
+        }
+
         $.ajax({
             type: "POST",
             url: "/api/board",

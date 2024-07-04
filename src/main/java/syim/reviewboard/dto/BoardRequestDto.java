@@ -12,4 +12,5 @@ public class BoardRequestDto {
     private String content;
     private String category;
     private BookDto book;
+    private MovieDto movie;
 }

@@ -38,6 +38,11 @@
         font-size: 0.9em;
         margin-left: 10px;
     }
+    .movie-info-main{
+        color: rgb(138, 138, 138);
+        font-size: 0.9em;
+        margin-left: 10px;
+    }
     .book-title{
         font-size: 0.9em;
         margin-left: 10px;
@@ -78,6 +83,17 @@
             <img src="${boards.book.imageURL}" alt="Book Image" width="50" class="book-image">
             <p class="book-title"> ${boards.book.title}</p>
             <p class="book-author">(${boards.book.author})</p>
+        </div>
+    </c:if>
+
+    <c:if test="${boards.category == 'Movie'}">
+        <h4 class="movie-info-main">영화 정보</h4>
+        <div class="d-flex align-items-center">
+<%--            추후 영어 제목, 개봉 년도 추가--%>
+            <p class="movie-title"> ${boards.movie.title}</p>
+            <p class="movie-director">(${boards.movie.director})</p>
+            <p class="movie-genre"> ${boards.movie.genre}</p>
+            <p class="movie-nation"> ${boards.movie.nation}</p>
         </div>
     </c:if>
 

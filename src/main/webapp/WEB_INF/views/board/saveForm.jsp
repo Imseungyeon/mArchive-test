@@ -47,8 +47,22 @@
                 <p id="book-title" class="mr-3 mb-0"></p>
                 <p id="book-author" class="mr-3 mb-0"></p>
             </div>
-
         </div>
+
+        <div class="form-group" id="movie-search-group" style="display: none;">
+            <button type="button" class="btn btn-secondary" onclick="openMovieSearch()">영화 검색</button>
+
+            <!-- 선택한 영화 정보를 표시 -->
+            <div id="selected-movie" class="d-flex align-items-center selected-movie" style="display: none">
+                <p id="movie-title" class="mr-3 mb-0"></p>
+<%--                <p id="movie-englishTitle" class="mr-3 mb-0"></p>--%>
+<%--                <p id="movie-productionYear" class="mr-3 mb-0"></p>--%>
+                <p id="movie-director" class="mr-3 mb-0"></p>
+                <p id="movie-genre" class="mr-3 mb-0"></p>
+                <p id="movie-nation" class="mr-3 mb-0"></p>
+            </div>
+        </div>
+
         <div class="form-group">
             <!-- summernote 활용 -->
             <textarea class="form-control summernote" rows="5" id="content"></textarea>
@@ -68,15 +82,31 @@
             } else {
                 document.getElementById("selected-book").style.display = "none";
             }
-        } else {
+        } else if (category === "Movie") {
+            document.getElementById("movie-search-group").style.display = "block";
+            var movieData = document.getElementById("selected-movie").dataset.movie;
+            if (movieData && movieData !== "null") {
+                document.getElementById("selected-movie").style.display = "flex";
+            } else {
+                document.getElementById("selected-movie").style.display = "none";
+            }
+        }  else {
             document.getElementById("book-search-group").style.display = "none";
             document.getElementById("selected-book").style.display = "none";
             document.getElementById("selected-book").dataset.book = null;
+
+            document.getElementById("movie-search-group").style.display = "none";
+            document.getElementById("selected-movie").style.display = "none";
+            document.getElementById("selected-movie").dataset.movie = null;
         }
     }
 
     function openBookSearch() {
         window.open("/book/search", "Book Search", "width=800,height=600");
+    }
+
+    function openMovieSearch() {
+        window.open("/movie/search", "Movie Search", "width=800,height=600");
     }
 
     function receiveSelectedBook(book) {
@@ -87,32 +117,14 @@
         document.getElementById("selected-book").dataset.book = JSON.stringify(book);
     }
 
-    // $(document).ready(function() {
-    //     $('#btn-save').one("click", function() {
-    //         event.preventDefault();
-    //
-    //         var book = JSON.parse(document.getElementById("selected-book").dataset.book || null);
-    //
-    //         var data = {
-    //             title: document.getElementById("title").value,
-    //             category: document.getElementById("category").value,
-    //             content: document.getElementById("content").value,
-    //             book: book // 선택한 책 정보를 포함
-    //         };
-    //
-    //         $.ajax({
-    //             type: "POST",
-    //             url: "/api/board",
-    //             data: JSON.stringify(data),
-    //             contentType: "application/json; charset=utf-8",
-    //         }).done(function(resp) {
-    //             alert("Success Save Post");
-    //             location.href = "/";
-    //         }).fail(function(error) {
-    //             alert("Failed Save Post");
-    //         });
-    //     });
-    // });
+    function receiveSelectedMovie(movie) {
+        document.getElementById("selected-movie").style.display = "block";
+        document.getElementById("movie-title").innerText = movie.title + "(" + movie.englishTitle + ", " + movie.productionYear + ")";
+        document.getElementById("movie-director").innerText = movie.director ;
+        document.getElementById("movie-genre").innerText = movie.genre ;
+        document.getElementById("movie-nation").innerText = movie.nation ;
+        document.getElementById("selected-movie").dataset.movie = JSON.stringify(movie);
+    }
 
 
     $('.summernote').summernote({
