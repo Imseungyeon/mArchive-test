@@ -11,25 +11,25 @@
             </div>
         </div>
     </c:forEach>
-
+<br>
    <%-- 페이지 네이션 동작 --%>
    <ul class="pagination justify-content-center">
        <c:choose>
            <c:when test="${boards.first}">
                 <%-- 처음 부분은 이전 버튼 비활성화 --%>
-                <li class="page-item disabled"><a class="page-link" href="?page=${boards.number-1}">Previous</a></li>
+                <li class="page-item disabled"><a class="page-link" href="?page=${boards.number-1}"> << </a></li>
            </c:when>
            <c:otherwise>
-                <li class="page-item"><a class="page-link" href="?page=${boards.number-1}">Previous</a></li>
+                <li class="page-item"><a class="page-link" href="?page=${boards.number-1}"> << </a></li>
            </c:otherwise>
       </c:choose>
       <c:choose>
            <c:when test="${boards.last}">
                <%-- 마지막 부분은 다음 버튼 비활성화 --%>
-                <li class="page-item disabled"><a class="page-link" href="?page=${boards.number+1}">Next</a></li>
+                <li class="page-item disabled"><a class="page-link" href="?page=${boards.number+1}"> >> </a></li>
            </c:when>
            <c:otherwise>
-                <li class="page-item"><a class="page-link" href="?page=${boards.number+1}">Next</a></li>
+                <li class="page-item"><a class="page-link" href="?page=${boards.number+1}"> >> </a></li>
            </c:otherwise>
       </c:choose>
    </ul>

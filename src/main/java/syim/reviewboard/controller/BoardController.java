@@ -18,7 +18,7 @@ public class BoardController {
 
     //게시글 목록 출력 - model 활용
     @GetMapping({"", "/"})
-    public String index(Model model, @PageableDefault(size = 3, sort = "id", direction = Sort.Direction.DESC)Pageable pageable) {
+    public String index(Model model, @PageableDefault(size = 7, sort = "id", direction = Sort.Direction.DESC)Pageable pageable) {
         model.addAttribute("boards", boardService.getPostList(pageable));
         return "index";
     }

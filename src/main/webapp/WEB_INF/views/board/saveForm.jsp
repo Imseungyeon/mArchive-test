@@ -43,7 +43,7 @@
 
             <!-- 선택한 책 정보를 표시하기 위한 요소 -->
             <div id="selected-book" class="d-flex align-items-center selected-book" style="display: none">
-                <img id="book-image" class="selected-book-image" src="" alt="Book Image" width="50">
+                <img id="book-image" class="selected-book-image" src="" width="50">
                 <p id="book-title" class="mr-3 mb-0"></p>
                 <p id="book-author" class="mr-3 mb-0"></p>
             </div>
@@ -75,6 +75,7 @@
     function checkCategory() {
         var category = document.getElementById("category").value;
         if (category === "Book") {
+            document.getElementById("movie-search-group").style.display = "none";
             document.getElementById("book-search-group").style.display = "block";
             var bookData = document.getElementById("selected-book").dataset.book;
             if (bookData && bookData !== "null") {
@@ -83,6 +84,7 @@
                 document.getElementById("selected-book").style.display = "none";
             }
         } else if (category === "Movie") {
+            document.getElementById("book-search-group").style.display = "none";
             document.getElementById("movie-search-group").style.display = "block";
             var movieData = document.getElementById("selected-movie").dataset.movie;
             if (movieData && movieData !== "null") {
