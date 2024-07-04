@@ -33,21 +33,12 @@
     .reply-info{
         font-size: 0.9em;
     }
-    .book-info-main{
+    .book-info-main, .movie-info-main{
         color: rgb(138, 138, 138);
         font-size: 0.9em;
         margin-left: 10px;
     }
-    .movie-info-main{
-        color: rgb(138, 138, 138);
-        font-size: 0.9em;
-        margin-left: 10px;
-    }
-    .book-title{
-        font-size: 0.9em;
-        margin-left: 10px;
-    }
-    .book-author{
+    .book-title, .book-author, .movie-title, .movie-genre, .movie-director, .movie-nation{
         font-size: 0.9em;
         margin-left: 10px;
     }
@@ -90,8 +81,8 @@
         <h4 class="movie-info-main">영화 정보</h4>
         <div class="d-flex align-items-center">
 <%--            추후 영어 제목, 개봉 년도 추가--%>
-            <p class="movie-title"> ${boards.movie.title}</p>
-            <p class="movie-director">(${boards.movie.director})</p>
+            <p class="movie-title"> ${boards.movie.title} (${boards.movie.englishTitle}, ${boards.movie.productionYear})</p>
+            <p class="movie-director">${boards.movie.director}</p>
             <p class="movie-genre"> ${boards.movie.genre}</p>
             <p class="movie-nation"> ${boards.movie.nation}</p>
         </div>
