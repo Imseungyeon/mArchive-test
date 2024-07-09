@@ -48,6 +48,10 @@ dependencies {
 
 	implementation 'com.fasterxml.jackson.core:jackson-databind'
 	implementation 'com.fasterxml.jackson.dataformat:jackson-dataformat-xml'
+
+	implementation 'javax.xml.bind:jaxb-api:2.3.1'
+	implementation 'org.glassfish.jaxb:jaxb-runtime:2.3.1'
+	implementation 'xerces:xercesImpl:2.12.0'
 }
 
 tasks.named('test') {
