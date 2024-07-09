@@ -21,7 +21,7 @@ body {
 /*    border-radius: 10px;*/
 /*}*/
 
-.book-search-container, .movie-search-container {
+.book-search-container, .movie-search-container, .theater-search-container {
     text-align: center;
     margin-bottom: 30px;
 }
@@ -35,8 +35,17 @@ body {
     display: block;
 }
 
+.theater-search-container label{
+    font-size: 1em;
+    font-weight: bold;
+    margin-bottom: 10px;
+    margin-right: 10px;
+    display: block;
+}
+
 .book-search-container .form-group,
-.movie-search-container .form-group{
+.movie-search-container .form-group,
+.theater-search-container .form-group{
     display: flex;
     justify-content: center;
     align-items: center;
@@ -44,7 +53,8 @@ body {
 }
 
 .book-search-container .form-group input[type="text"],
-.movie-search-container .form-group input[type="text"]{
+.movie-search-container .form-group input[type="text"],
+.theater-search-container .form-group input[type="text"]{
     width: 70%;
     padding: 10px;
     font-size: 1em;
@@ -57,13 +67,15 @@ body {
 }
 
 .book-search-container .form-group input[type="text"]:focus,
-.movie-search-container .form-group input[type="text"]:focus{
+.movie-search-container .form-group input[type="text"]:focus,
+.theater-search-container .form-group input[type="text"]:focus{
     border-color: #80bdff;
     box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
 }
 
 .book-search-container .form-group button,
-.movie-search-container .form-group button{
+.movie-search-container .form-group button,
+.theater-search-container .form-group button{
     padding: 10px 20px;
     font-size: 1em;
     border: 1px solid #007bff;
@@ -76,13 +88,15 @@ body {
 }
 
 .book-search-container .form-group button:hover,
-.movie-search-container .form-group button:hover {
+.movie-search-container .form-group button:hover,
+.theater-search-container .form-group button:hover{
     background-color: #0056b3;
     border-color: #004085;
 }
 
 .book-search-group .form-group button:hover,
-.movie-search-group .form-group button:hover{
+.movie-search-group .form-group button:hover,
+.theater-search-group .form-group button:hover{
     background-color: #0056b3;
     border-color: #004085;
 }
@@ -129,7 +143,10 @@ body {
 .book-find button,
 .movie-find label,
 .movie-find input,
-.movie-find button{
+.movie-find button,
+.theater-find label,
+.theater-find input,
+.theater-find button{
     margin: 20px 0;
 }
 

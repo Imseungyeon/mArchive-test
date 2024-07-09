@@ -28,8 +28,9 @@ public class BoardApiController {
 
         BookDto bookDto = boardRequestDto.getBook();
         MovieDto movieDto = boardRequestDto.getMovie();
+        TheaterDto theaterDto = boardRequestDto.getTheater();
 
-        boardService.writePost(board, principalDetail.getUser(), bookDto, movieDto);
+        boardService.writePost(board, principalDetail.getUser(), bookDto, movieDto, theaterDto);
         return new ResponseDto<>(HttpStatus.OK, 1);
     }
 

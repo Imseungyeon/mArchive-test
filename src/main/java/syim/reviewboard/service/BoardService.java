@@ -1,6 +1,5 @@
 package syim.reviewboard.service;
 
-import jakarta.persistence.Column;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.data.domain.Page;
@@ -9,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 import syim.reviewboard.dto.BookDto;
 import syim.reviewboard.dto.MovieDto;
 import syim.reviewboard.dto.ReplySaveRequestDto;
+import syim.reviewboard.dto.TheaterDto;
 import syim.reviewboard.model.*;
 import syim.reviewboard.repository.*;
 
@@ -27,6 +27,9 @@ public class BoardService {
     private MovieRepository movieRepository;
 
     @Autowired
+    private TheaterRepository theaterRepository;
+
+    @Autowired
     private ReplyRepository replyRepository;
 
     public BoardService(BoardRepository boardRepository) {
@@ -35,7 +38,7 @@ public class BoardService {
 
     //게시글을 저장
     @Transactional
-    public void writePost(Board board, User user, BookDto bookDto, MovieDto movieDto) {
+    public void writePost(Board board, User user, BookDto bookDto, MovieDto movieDto, TheaterDto theaterDto) {
         board.setUser(user); // 실제로 저장될 때는 user에 해당하는 id만 저장됨
         if (bookDto != null) {
             Book book = bookRepository.findByApiId(bookDto.getApiId());
@@ -53,6 +56,15 @@ public class BoardService {
                 movieRepository.save(movie);
             }
             board.setMovie(movie);
+        }
+
+        if (theaterDto != null) {
+            Theater theater = theaterRepository.findByMt20id(theaterDto.getMt20id());
+            if (theater == null) {
+                theater = convertToTheater(theaterDto);
+                theaterRepository.save(theater);
+            }
+            board.setTheater(theater);
         }
         boardRepository.save(board);
 
@@ -81,6 +93,20 @@ public class BoardService {
         movie.setMovieId(movieDto.getMovieId());
 
         return movie;
+    }
+
+    private Theater convertToTheater(TheaterDto theaterDto) {
+        Theater theater = new Theater();
+
+        theater.setTitle(theaterDto.getTitle());
+        theater.setGenre(theaterDto.getGenre());
+        theater.setStartDate(theaterDto.getStartDate());
+        theater.setEndDate(theaterDto.getEndDate());
+        theater.setPlace(theaterDto.getPlace());
+        theater.setImageURL(theaterDto.getImageURL());
+        theater.setMt20id(theaterDto.getMt20id());
+
+        return theater;
     }
 
     //게시글 리스트 출력

@@ -37,6 +37,13 @@ let index = {
             }
         }
 
+        if ($("#category").val() === "Theater") {
+            let selectedTheater = document.getElementById("selected-theater").dataset.theater;
+            if (selectedTheater) {
+                data.theater = JSON.parse(selectedTheater);
+            }
+        }
+
         $.ajax({
             type: "POST",
             url: "/api/board",

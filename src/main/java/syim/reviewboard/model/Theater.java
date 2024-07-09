@@ -24,6 +24,8 @@ public class Theater {
     @Column(nullable = false)
     private String endDate;
     @Column(nullable = false)
+    private String imageURL;
+    @Column(nullable = false)
     private String place;
     @Column(unique = true, nullable = false)
     private String mt20id; //Kopis Api에서 받은 연극, 뮤지컬 고유번호

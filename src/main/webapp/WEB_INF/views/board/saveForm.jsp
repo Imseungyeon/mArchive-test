@@ -13,11 +13,11 @@
     .mb-0 {
         margin-bottom: 0;
     }
-    .selected-book-image{
+    .selected-book-image, .selected-theater-image{
         margin-left: 10px;
         margin-right: 30px;
     }
-    .selected-book{
+    .selected-book, .selected-theater{
         margin-top: 10px;
     }
 </style>
@@ -31,9 +31,9 @@
             <label class="mr-sm-2" for="category">Category</label>
             <select class="custom-select mr-sm-2" id="category" onchange="checkCategory()">
                 <option selected>Choose Category</option>
-                <option value="Movie">Movie</option>
-                <option value="Book">Book</option>
-                <option value="Exhibition">Exhibition</option>
+                <option value="Movie">Movie(영화)</option>
+                <option value="Book">Book(도서)</option>
+                <option value="Theater">Theater(연극/뮤지컬)</option>
             </select>
         </div>
         <div class="form-group" id="book-search-group" style="display: none;">
@@ -63,6 +63,19 @@
             </div>
         </div>
 
+        <div class="form-group" id="theater-search-group" style="display: none;">
+            <button type="button" class="btn btn-secondary" onclick="openTheaterSearch()">연극/뮤지컬 검색</button>
+
+            <!-- 선택한 연극/뮤지컬 정보를 표시하기 위한 요소 -->
+            <div id="selected-theater" class="d-flex align-items-center selected-theater" style="display: none">
+                <img id="theater-image" class="selected-theater-image" src="" width="50">
+                <p id="theater-title" class="mr-3 mb-0"></p>
+                <p id="theater-genre" class="mr-3 mb-0"></p>
+                <p id="theater-period" class="mr-3 mb-0"></p>
+                <p id="theater-place" class="mr-3 mb-0"></p>
+            </div>
+        </div>
+
         <div class="form-group">
             <!-- summernote 활용 -->
             <textarea class="form-control summernote" rows="5" id="content"></textarea>
@@ -75,6 +88,7 @@
     function checkCategory() {
         var category = document.getElementById("category").value;
         if (category === "Book") {
+            document.getElementById("theater-search-group").style.display = "none";
             document.getElementById("movie-search-group").style.display = "none";
             document.getElementById("book-search-group").style.display = "block";
             var bookData = document.getElementById("selected-book").dataset.book;
@@ -86,13 +100,25 @@
         } else if (category === "Movie") {
             document.getElementById("book-search-group").style.display = "none";
             document.getElementById("movie-search-group").style.display = "block";
+            document.getElementById("theater-search-group").style.display = "none";
             var movieData = document.getElementById("selected-movie").dataset.movie;
             if (movieData && movieData !== "null") {
                 document.getElementById("selected-movie").style.display = "flex";
             } else {
                 document.getElementById("selected-movie").style.display = "none";
             }
-        }  else {
+        }  else if (category === "Theater") {
+            document.getElementById("theater-search-group").style.display = "block";
+            document.getElementById("movie-search-group").style.display = "none";
+            document.getElementById("book-search-group").style.display = "none";
+            var theaterData = document.getElementById("selected-theater").dataset.theater;
+            if (theaterData && theaterData !== "null") {
+                document.getElementById("selected-theater").style.display = "flex";
+            } else {
+                document.getElementById("selected-theater").style.display = "none";
+            }
+
+        }else {
             document.getElementById("book-search-group").style.display = "none";
             document.getElementById("selected-book").style.display = "none";
             document.getElementById("selected-book").dataset.book = null;
@@ -100,6 +126,10 @@
             document.getElementById("movie-search-group").style.display = "none";
             document.getElementById("selected-movie").style.display = "none";
             document.getElementById("selected-movie").dataset.movie = null;
+
+            document.getElementById("theater-search-group").style.display = "none";
+            document.getElementById("selected-theater").style.display = "none";
+            document.getElementById("selected-theater").dataset.movie = null;
         }
     }
 
@@ -109,6 +139,10 @@
 
     function openMovieSearch() {
         window.open("/movie/search", "Movie Search", "width=800,height=600");
+    }
+
+    function openTheaterSearch() {
+        window.open("/theater/search", "Theater Search", "width=800,height=600");
     }
 
     function receiveSelectedBook(book) {
@@ -122,10 +156,20 @@
     function receiveSelectedMovie(movie) {
         document.getElementById("selected-movie").style.display = "block";
         document.getElementById("movie-title").innerText = movie.title + "(" + movie.englishTitle + ", " + movie.productionYear + ")";
-        document.getElementById("movie-director").innerText = movie.director ;
-        document.getElementById("movie-genre").innerText = movie.genre ;
-        document.getElementById("movie-nation").innerText = movie.nation ;
+        document.getElementById("movie-director").innerText = movie.director;
+        document.getElementById("movie-genre").innerText = movie.genre;
+        document.getElementById("movie-nation").innerText = movie.nation;
         document.getElementById("selected-movie").dataset.movie = JSON.stringify(movie);
+    }
+
+    function receiveSelectedTheater(theater) {
+        document.getElementById("selected-theater").style.display = "block";
+        document.getElementById("theater-title").innerText = theater.title;
+        document.getElementById("theater-genre").innerText = theater.genre;
+        document.getElementById("theater-period").innerText = theater.startDate + " ~ " + theater.endDate;
+        document.getElementById("theater-place").innerText = theater.place;
+        document.getElementById("theater-image").src = theater.imageURL;
+        document.getElementById("selected-theater").dataset.theater = JSON.stringify(theater);
     }
 
 

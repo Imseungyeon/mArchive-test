@@ -13,4 +13,5 @@ public class BoardRequestDto {
     private String category;
     private BookDto book;
     private MovieDto movie;
+    private TheaterDto theater;
 }

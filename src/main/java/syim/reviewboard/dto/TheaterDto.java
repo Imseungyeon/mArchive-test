@@ -19,19 +19,10 @@ public class TheaterDto {
 
     private String endDate;
 
-    private String period;
+    private String imageURL;
 
     private String place;
     @Column(unique = true, nullable = false)
     private String mt20id;
 
-    @Override
-    public String toString(){
-        return "TheaterDto{" +
-                "title='" + title + '\'' +
-                ", genre='" + genre + '\'' +
-                ", period='" + period + '\'' +
-                ", place='" + place + '\'' +
-                '}';
-    }
 }

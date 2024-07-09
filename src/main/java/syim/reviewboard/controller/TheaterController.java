@@ -12,10 +12,12 @@ import syim.reviewboard.service.TheaterService;
 import java.util.List;
 
 @Controller
-@RequestMapping("/Theater")
+@RequestMapping("/theater")
 public class TheaterController {
     private TheaterService theaterService;
+
     public TheaterController(TheaterService theaterService){this.theaterService = theaterService;}
+
     @GetMapping("/search")
     public String TheaterSearch(Model model) {
         model.addAttribute("keyword", "");

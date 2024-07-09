@@ -33,16 +33,17 @@
     .reply-info{
         font-size: 0.9em;
     }
-    .book-info-main, .movie-info-main{
+    .book-info-main, .movie-info-main, .theater-info-main{
         color: rgb(138, 138, 138);
         font-size: 0.9em;
         margin-left: 10px;
     }
-    .book-title, .book-author, .movie-title, .movie-genre, .movie-director, .movie-nation{
+    .book-title, .book-author, .movie-title, .movie-genre, .movie-director, .movie-nation,
+    .theater-title, .theater-genre, .theater-period, .theater-place{
         font-size: 0.9em;
         margin-left: 10px;
     }
-    .book-image{
+    .book-image, .theater-image{
         margin-left: 10px;
     }
 </style>
@@ -87,6 +88,18 @@
             <p class="movie-nation"> ${boards.movie.nation}</p>
         </div>
     </c:if>
+
+    <c:if test="${boards.category == 'Theater'}">
+        <h4 class="theater-info-main">연극/뮤지컬 정보</h4>
+        <div class="d-flex align-items-center">
+            <img src="${boards.theater.imageURL}" alt="Theater Image" width="50" class="theater-image">
+            <p class="theater-title"> ${boards.theater.title} </p>
+            <p class="theater-genre"> ${boards.theater.genre} </p>
+            <p class="theater-period"> ${boards.theater.startDate} ~ ${boards.theater.endDate}</p>
+            <p class="theater-place">${boards.theater.place}</p>
+        </div>
+    </c:if>
+
 
     <hr>
     <div class="form-group post-content">
