@@ -21,7 +21,7 @@
 <body>
 
 <nav class="navbar navbar-expand-md navbar-dark bg-primary">
-    <a class="navbar-brand" href="/">mArchive</a>
+    <a class="navbar-brand" href="/">mArchive Home</a>
     <button class="navbar-toggler" type="button" date-toggle="collapse" data-target="#collapsibleNavbar">
         <span class="navbar-toggler-icon"></span>
     </button>
@@ -37,6 +37,9 @@
                     </li>
             </c:when>
             <c:otherwise>
+                <li class="navbar-item">
+                    <a class="nav-link" href="/board/userPosts">mArchive</a>
+                </li>
                 <li class="navbar-item">
                     <a class="nav-link" href="/board/saveForm">Write</a>
                 </li>

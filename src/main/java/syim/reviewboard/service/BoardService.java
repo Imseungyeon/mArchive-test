@@ -114,6 +114,9 @@ public class BoardService {
         return boardRepository.findAll(pageable);
     }
 
+    //로그인한 사용자 본인의 게시글 조회
+    public Page<Board> getUserPosts(User user, Pageable pageable) { return boardRepository.findByUser(user, pageable); }
+
     //특정 게시글을 출력 - 특정 id를 key로 삼아서 select
     @Transactional(readOnly = true)
     public Board getPost(long id) {
