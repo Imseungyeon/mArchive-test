@@ -209,3 +209,7 @@ body {
     background-color: rgba(68, 68, 68, 0.94);
 }
 
+.OAuth-login-header {
+    font-size: 0.9em;
+}
+

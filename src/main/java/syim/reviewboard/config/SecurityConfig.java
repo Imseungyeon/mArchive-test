@@ -1,6 +1,7 @@
 package syim.reviewboard.config;
 
 import jakarta.servlet.DispatcherType;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -14,23 +15,37 @@ import org.springframework.security.config.annotation.web.configurers.AbstractHt
 import org.springframework.security.config.annotation.web.configurers.HeadersConfigurer;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.oauth2.client.registration.ClientRegistration;
+import org.springframework.security.oauth2.client.registration.ClientRegistrationRepository;
+import org.springframework.security.oauth2.client.registration.InMemoryClientRegistrationRepository;
+import org.springframework.security.oauth2.core.AuthorizationGrantType;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import syim.reviewboard.Handler.CustomAuthFailureHandler;
 import syim.reviewboard.config.auth.PrincipalDetailService;
+import syim.reviewboard.service.CustomOAuth2UserService;
 
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
 
-    private final AuthenticationFailureHandler customFailureHandler;
-    //private final CustomAuthFailureHandler customFailureHandler;
-    private final PrincipalDetailService principalDetailService;
+    @Value("${api.naver.client.id}")
+    private String naverClientId;
 
-    public SecurityConfig(AuthenticationFailureHandler customFailureHandler, PrincipalDetailService principalDetailService) {
+    @Value("${api.naver.client.secret}")
+    private String naverClientSecret;
+
+    @Value("${api.naver.redirect.uri}")
+    private String redirectUri;
+    private final AuthenticationFailureHandler customFailureHandler;
+    private final PrincipalDetailService principalDetailService;
+    private final CustomOAuth2UserService customOAuth2UserService;
+
+    public SecurityConfig(AuthenticationFailureHandler customFailureHandler, PrincipalDetailService principalDetailService, CustomOAuth2UserService customOAuth2UserService) {
         this.customFailureHandler = customFailureHandler;
         this.principalDetailService = principalDetailService;
+        this.customOAuth2UserService = customOAuth2UserService;
     }
 
     private static final String[] PERMIT_URL_ARRAY = {
@@ -61,8 +76,17 @@ public class SecurityConfig {
                                  .loginProcessingUrl("/auth/loginProc") // 로그인 처리 URL
                                  .defaultSuccessUrl("/", true) // 로그인 성공 시 기본 URL
                                  .failureHandler(customFailureHandler) // 로그인 실패 핸들러
+                                 .permitAll()
                 )
-                .logout(logout -> logout.logoutSuccessUrl("/"))// 로그아웃 설정
+                .oauth2Login(oauth2Login ->
+                        oauth2Login
+                                .loginPage("/auth/loginForm")
+                                .defaultSuccessUrl("/", true)
+                                .failureHandler(customFailureHandler).permitAll()
+                                .userInfoEndpoint(userInfoEndpoint -> userInfoEndpoint.userService(customOAuth2UserService)
+                                )
+                )
+                .logout(logout -> logout.logoutSuccessUrl("/").permitAll())// 로그아웃 설정
                 .headers(headers -> headers.frameOptions(HeadersConfigurer.FrameOptionsConfig::sameOrigin)) // h2 db 웹 콘솔 접근 설정
                 .userDetailsService(principalDetailService); // 사용자 세부 서비스 설정
 
@@ -82,5 +106,27 @@ public class SecurityConfig {
     @Bean
     public WebSecurityCustomizer webSecurityCustomizer() {
         return (web) -> web.ignoring().requestMatchers("/resources/**");
+    }
+
+    @Bean
+    public ClientRegistrationRepository clientRegistrationRepository() {
+        return new InMemoryClientRegistrationRepository(
+                naverClientRegistration()
+        );
+    }
+
+    private ClientRegistration naverClientRegistration() {
+        return ClientRegistration.withRegistrationId("naver")
+                .clientId(naverClientId)
+                .clientSecret(naverClientSecret)
+                .scope("profile", "email")
+                .authorizationGrantType(AuthorizationGrantType.AUTHORIZATION_CODE)
+                .authorizationUri("https://nid.naver.com/oauth2.0/authorize")
+                .tokenUri("https://nid.naver.com/oauth2.0/token")
+                .userInfoUri("https://openapi.naver.com/v1/nid/me")
+                .userNameAttributeName("response")
+                .clientName("Naver")
+                .redirectUri(redirectUri)
+                .build();
     }
 }

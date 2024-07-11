@@ -35,6 +35,9 @@ public class User {
     @Enumerated(EnumType.STRING)
     private LoginType loginType;
 
+    private String provider; // google, naver, kakao
+    private String providerId; // OAuth2 제공자가 부여한 고유 ID
+
     @CreationTimestamp
     private Timestamp createDate;
 
