@@ -124,8 +124,6 @@
     </div>
     <br>
 
-<%--  c:if  테스트 넣기 댓글 0개 아닐때만 노출되도록--%>
-
     <div class="card">
         <div class="card-header"> 댓글 ${fn:length(boards.replys)}개</div>
         <ul id="reply-box" class="list-group">

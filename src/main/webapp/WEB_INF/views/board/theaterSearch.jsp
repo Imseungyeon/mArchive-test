@@ -79,7 +79,7 @@ HTML : 변화가 없는 단순 상수값을 출력할 때 사용한다. -->
                             "<td>" + genre + "</td>" +
                             "<td>" + startDate + "~" + endDate + "</td>" +
                             "<td>" + place + "</td>" +
-                            '<td><img src="' + imageURL + '" alt="Book Image" width="100"/></td>';
+                            '<td><img src="' + imageURL + '" alt="Theater Image" width="100"/></td>';
 
                         var row = document.createElement("tr");
                         var theaterStringify = JSON.stringify(theater);

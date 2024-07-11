@@ -24,11 +24,11 @@
 <div class="container">
     <form>
         <div class="form-group">
-            <label for="title">Title</label>
+            <label for="title">제목</label>
             <input type="text" class="form-control" id="title" placeholder="Enter title">
         </div>
         <div class="form-group">
-            <label class="mr-sm-2" for="category">Category</label>
+            <label class="mr-sm-2" for="category">카테고리</label>
             <select class="custom-select mr-sm-2" id="category" onchange="checkCategory()">
                 <option selected>Choose Category</option>
                 <option value="Movie">Movie(영화)</option>
