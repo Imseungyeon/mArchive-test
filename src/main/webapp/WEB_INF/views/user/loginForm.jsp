@@ -29,6 +29,9 @@
             <a href="/oauth2/authorization/naver" class="btn btn-outline-success btn-block">
                 <i class="fab fa-neversoft"></i> 네이버 계정으로 로그인
             </a>
+            <a href="/oauth2/authorization/kakao" class="btn btn-outline-warning btn-block mt-2">
+                <i class="fab fa-kickstarter"></i> 카카오 계정으로 로그인
+            </a>
         </div>
     </div>
 </div>

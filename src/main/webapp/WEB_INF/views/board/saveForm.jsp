@@ -36,7 +36,7 @@
                 <option value="Theater">Theater(연극/뮤지컬)</option>
             </select>
         </div>
-        <div class="form-group" id="book-search-group" style="display: none;">
+        <div class="form-group d-flex" id="book-search-group" style="display: none;">
             <button type="button" class="btn btn-secondary" onclick="openBookSearch()">책 검색</button>
 <%--            <input type="hidden" id="selected-book">--%>
 <%--            <div id="selected-book-info"></div>--%>
@@ -81,7 +81,10 @@
             <textarea class="form-control summernote" rows="5" id="content"></textarea>
         </div>
     </form>
-    <button id="btn-save" class="btn btn-primary">Save</button>
+    <div class="d-flex justify-content-between align-items-center">
+        <button id="btn-save" class="btn btn-primary ml-auto">Save</button>
+    </div>
+
 </div>
 
 <script>

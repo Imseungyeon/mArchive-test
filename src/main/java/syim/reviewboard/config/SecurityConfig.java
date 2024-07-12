@@ -25,6 +25,8 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import syim.reviewboard.Handler.CustomAuthFailureHandler;
 import syim.reviewboard.config.auth.PrincipalDetailService;
 import syim.reviewboard.service.CustomOAuth2UserService;
+import org.springframework.security.oauth2.core.ClientAuthenticationMethod;
+
 
 @Configuration
 @EnableWebSecurity
@@ -32,12 +34,17 @@ public class SecurityConfig {
 
     @Value("${api.naver.client.id}")
     private String naverClientId;
-
     @Value("${api.naver.client.secret}")
     private String naverClientSecret;
-
     @Value("${api.naver.redirect.uri}")
-    private String redirectUri;
+    private String naverRedirectUri;
+    @Value("${api.kakao.client.id}")
+    private String kakaoClientId;
+    @Value("${api.kakao.client.secret}")
+    private String kakaoClientSecret;
+    @Value("${api.kakao.redirect.uri}")
+    private String kakaoRedirectUri;
+
     private final AuthenticationFailureHandler customFailureHandler;
     private final PrincipalDetailService principalDetailService;
     private final CustomOAuth2UserService customOAuth2UserService;
@@ -111,6 +118,7 @@ public class SecurityConfig {
     @Bean
     public ClientRegistrationRepository clientRegistrationRepository() {
         return new InMemoryClientRegistrationRepository(
+                kakaoClientRegistration(),
                 naverClientRegistration()
         );
     }
@@ -126,7 +134,24 @@ public class SecurityConfig {
                 .userInfoUri("https://openapi.naver.com/v1/nid/me")
                 .userNameAttributeName("response")
                 .clientName("Naver")
-                .redirectUri(redirectUri)
+                .redirectUri(naverRedirectUri)
+                .build();
+    }
+
+    private ClientRegistration kakaoClientRegistration() {
+        System.out.println("kakaoclientregistration called");
+        return ClientRegistration.withRegistrationId("kakao")
+                .clientId(kakaoClientId)
+                .clientSecret(kakaoClientSecret)
+                .scope("profile_nickname", "account_email")
+                .clientAuthenticationMethod(ClientAuthenticationMethod.CLIENT_SECRET_POST)
+                .authorizationGrantType(AuthorizationGrantType.AUTHORIZATION_CODE)
+                .authorizationUri("https://kauth.kakao.com/oauth/authorize")
+                .tokenUri("https://kauth.kakao.com/oauth/token")
+                .userInfoUri("https://kapi.kakao.com/v2/user/me")
+                .userNameAttributeName("id")
+                .clientName("Kakao")
+                .redirectUri(kakaoRedirectUri)
                 .build();
     }
 }
