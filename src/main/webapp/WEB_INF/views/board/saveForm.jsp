@@ -15,7 +15,7 @@
     }
     .selected-book-image, .selected-theater-image{
         margin-left: 10px;
-        margin-right: 30px;
+        margin-right: 20px;
     }
     .selected-book, .selected-theater{
         margin-top: 10px;
@@ -30,16 +30,14 @@
         <div class="form-group">
             <label class="mr-sm-2" for="category">카테고리</label>
             <select class="custom-select mr-sm-2" id="category" onchange="checkCategory()">
-                <option selected>Choose Category</option>
-                <option value="Movie">Movie(영화)</option>
-                <option value="Book">Book(도서)</option>
-                <option value="Theater">Theater(연극/뮤지컬)</option>
+                <option value="" selected disabled>== Choose Category ==</option>
+                <option value="Book">Book (도서)</option>
+                <option value="Movie">Movie (영화)</option>
+                <option value="Theater">Theater (연극/뮤지컬)</option>
             </select>
         </div>
-        <div class="form-group d-flex" id="book-search-group" style="display: none;">
+        <div class="form-group" id="book-search-group" style="display: none;">
             <button type="button" class="btn btn-secondary" onclick="openBookSearch()">책 검색</button>
-<%--            <input type="hidden" id="selected-book">--%>
-<%--            <div id="selected-book-info"></div>--%>
 
             <!-- 선택한 책 정보를 표시하기 위한 요소 -->
             <div id="selected-book" class="d-flex align-items-center selected-book" style="display: none">
@@ -91,9 +89,9 @@
     function checkCategory() {
         var category = document.getElementById("category").value;
         if (category === "Book") {
-            document.getElementById("theater-search-group").style.display = "none";
-            document.getElementById("movie-search-group").style.display = "none";
             document.getElementById("book-search-group").style.display = "block";
+            document.getElementById("movie-search-group").style.display = "none";
+            document.getElementById("theater-search-group").style.display = "none";
             var bookData = document.getElementById("selected-book").dataset.book;
             if (bookData && bookData !== "null") {
                 document.getElementById("selected-book").style.display = "flex";
@@ -111,9 +109,9 @@
                 document.getElementById("selected-movie").style.display = "none";
             }
         }  else if (category === "Theater") {
-            document.getElementById("theater-search-group").style.display = "block";
-            document.getElementById("movie-search-group").style.display = "none";
             document.getElementById("book-search-group").style.display = "none";
+            document.getElementById("movie-search-group").style.display = "none";
+            document.getElementById("theater-search-group").style.display = "block";
             var theaterData = document.getElementById("selected-theater").dataset.theater;
             if (theaterData && theaterData !== "null") {
                 document.getElementById("selected-theater").style.display = "flex";
